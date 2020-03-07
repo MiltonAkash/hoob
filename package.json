@@ -1,0 +1,16 @@
+{
+  "name": "hoob",
+  "version": "1.0.0",
+  "description": "Js objects with history",
+  "main": "index.js",
+  "scripts": {
+    "test": "yarn jest"
+  },
+  "repository": "git@github.com:MiltonAkash/hoob.git",
+  "author": "mil10akash@gmail.com",
+  "license": "MIT",
+  "private": false,
+  "dependencies": {
+    "jest": "^25.1.0"
+  }
+}
