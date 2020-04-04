@@ -1,6 +1,6 @@
 {
   "name": "hoob",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Js objects with history",
   "main": "dist/Hoob.js",
   "scripts": {
@@ -9,6 +9,9 @@
     "build": "yarn babelify && yarn babemin",
     "test": "yarn jest"
   },
+  "files": [
+    "dist/Hoob.js"
+  ],
   "repository": "git@github.com:MiltonAkash/hoob.git",
   "author": "mil10akash@gmail.com",
   "license": "MIT",
