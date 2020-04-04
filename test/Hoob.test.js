@@ -1,4 +1,4 @@
-const Hoob   = require('hoob');
+const Hoob   = require('../src/hoob');
 const ticket = require('../misc/sample-ticket.js');
 
 describe('Hoob creation',() => {
@@ -95,15 +95,15 @@ describe('Hoob recordwise functions',() => {
 
 
 
-    test.skip('Changed attributes', ()=>{
+    test('Changed attributes', ()=>{
         expect(x.changedAttributes()).toStrictEqual({});
-        x.val.name = "Batman Origins";
-        expect(x.changedAttributes()).toStrictEqual({name:['batman','Batman Origins']});
+        x.subject = "New Subject";
+        expect(x.changedAttributes()).toStrictEqual({subject:['Test Subject','New Subject']});
 
     });
 
 
-    test.skip('Delete a Record', ()=>{
+    test('Delete a Record', ()=>{
         expect(x._markAsDelete).toBeFalsy();
         x.deleteRecord();
         expect(x._markAsDelete).toBeTruthy();

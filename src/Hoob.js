@@ -62,14 +62,16 @@ class Hoob{
     }
 
     changedAttributes(){
-        let changes = [];
+        let changes = {};
         var _this = this;
-        return Object.keys(this)
+        Object.keys(this)
             .filter(Hoob.isExternal)
-            .every(function(key){
-                return  typeof _this._initVal[key] == 'undefined' || _this._initVal[key] != _this[key];
+            .forEach(function(key){
+                if(typeof _this._initVal[key] == 'undefined' || _this._initVal[key] != _this[key]){
+                    changes[key] = [_this._initVal[key],_this[key]];
+                }
             });
-
+        return changes;
 
     }
 
