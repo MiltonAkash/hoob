@@ -2,7 +2,7 @@
   "name": "hoob",
   "version": "1.0.0",
   "description": "Js objects with history",
-  "main": "index.js",
+  "main": "dist/Hoob.js",
   "scripts": {
     "babelify": "babel src/Hoob.js -o dist/Hoob.js",
     "babemin": "babel src/Hoob.js -o dist/Hoob.min.js --minified",

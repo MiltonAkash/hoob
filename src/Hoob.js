@@ -2,65 +2,74 @@ class Hoob{
 
     constructor( rawData = {} ) {
         this._initVal				=	rawData;
-        this._patch					=	{};
+        // this._patch					=	{};
         this._markAsDelete	        =	false;
         Object.assign(this,rawData);
-        return this._connectProxy(rawData);
+        // return this._connectProxy(rawData);
 
     }
 
-
-
-    _connectProxy(){
-        let self = this;
-        return new Proxy( self, {
-
-            set: function ( obj, key, value ) {
-
-                self._patch[ key ]  = value;
-                obj[ key ]          = value;
-                return true;
-
-            },
-
-            deleteProperty: function( obj, key ) {
-
-                delete self._patch[key];
-                delete obj[key];
-
-            }
-
-        });
-    }
+    //
+    //
+    // _connectProxy(){
+    //     let self = this;
+    //     return new Proxy( self, {
+    //
+    //         set: function ( obj, key, value ) {
+    //
+    //             self._patch[ key ]  = value;
+    //             obj[ key ]          = value;
+    //             return true;
+    //
+    //         },
+    //
+    //         deleteProperty: function( obj, key ) {
+    //
+    //             delete self._patch[key];
+    //             delete obj[key];
+    //
+    //         }
+    //
+    //     });
+    // }
 
     rollBackAttributes(){
 
-        Object.assign(this,this._initVal,{
-            _markAsDelete:false,
-            _patch : {}
-        });
+        // Object.assign(this,this._initVal,{
+        //     _markAsDelete:false,
+        //     _patch : {}
+        // });
         // this._patch         = {};
-        // this._markAsDelete  = false;
+
+        Object.keys(this).filter(Hoob.isExternal).forEach(key=>{
+            delete this[key];
+        });
+        Object.assign(this,this._initVal);
+        this._markAsDelete  = false;
         return this;
 
     }
 
     hasDirtyAttributes(){
 
-        // Take difference between initval and this
-
-        return Object.entries(this._patch).length || this._markAsDelete;
+        var _this = this;
+        return Object.keys(this)
+            .filter(Hoob.isExternal)
+            .some(function(key){
+                return  typeof _this._initVal[key] == 'undefined' || _this._initVal[key] != _this[key];
+            });
 
     }
 
     changedAttributes(){
-
-        let mapObject = {};
-        Object.keys( this._patch )
-            .forEach(key => {
-                mapObject[ key ] = [ this._initVal[ key ], this._patch[ key ] ];
+        let changes = [];
+        var _this = this;
+        return Object.keys(this)
+            .filter(Hoob.isExternal)
+            .every(function(key){
+                return  typeof _this._initVal[key] == 'undefined' || _this._initVal[key] != _this[key];
             });
-        return mapObject;
+
 
     }
 
@@ -68,8 +77,15 @@ class Hoob{
         this._markAsDelete = true;
     }
 
-    save(){
+    // save(){
+    //
+    //     this._
+    //
+    // }
 
+    static isExternal( key ){
+        const internalVar = ['_initVal','_markAsDelete'];
+        return !internalVar.includes( key );
     }
 
 }
