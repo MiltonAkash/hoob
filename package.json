@@ -1,6 +1,6 @@
 {
   "name": "hoob",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Js objects with history",
   "main": "dist/Hoob.js",
   "scripts": {
